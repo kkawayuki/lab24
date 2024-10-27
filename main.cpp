@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <list> // for std::list
+#include <set> // for std::set
 #include <random>
 #include <time.h> //for better randomization
 #include "Goat.h"
@@ -13,10 +13,10 @@ using namespace std;
 const int SZ_NAMES = 200, SZ_COLORS = 25, MAX_AGE = 20;
 
 // function prototypes
-int select_goat(list<Goat> trip);
-void delete_goat(list<Goat> &trip);
-void add_goat(list<Goat> &trip, string colors[], string names[]);
-void display_trip(list<Goat> trip);
+int select_goat(set<Goat> trip);
+void delete_goat(set<Goat> &trip);
+void add_goat(set<Goat> &trip, string colors[], string names[]);
+void display_trip(set<Goat> trip);
 int main_menu();
 
 int main()
@@ -38,7 +38,7 @@ int main()
     fin1.close();
 
     // note: names/colors arrays now full of values
-    list<Goat> trip; // list of goats is called a trip?
+    set<Goat> trip; // set of goats is called a trip?
 
     // my code
     bool again = true;
@@ -50,7 +50,7 @@ int main()
         {
         case (1):
         {
-            add_goat(trip, colors, names); // pass list of trips, colors[], names[]
+            add_goat(trip, colors, names); // pass set of trips, colors[], names[]
             cout << "Added goat!\n"; 
             break;
         }
@@ -81,7 +81,7 @@ int main()
 int main_menu()
 {
     int choice;
-    cout << "\n*** GOAT MANAGER 3001 ***\n[1] Add a goat\n[2] Delete a goat\n[3] List goats\n[4] Quit\nChoice --> ";
+    cout << "\n*** GOAT MANAGER 3001 ***\n[1] Add a goat\n[2] Delete a goat\n[3] set goats\n[4] Quit\nChoice --> ";
     cin >> choice;
     
     while (choice > 4 || choice < 1) // validation loop
@@ -92,7 +92,7 @@ int main_menu()
     return (choice);
 }
 
-void display_trip(list<Goat> trip) // displays all goats in the "trip"
+void display_trip(set<Goat> trip) // displays all goats in the "trip"
 {
     if (trip.empty())
     {
@@ -109,13 +109,13 @@ void display_trip(list<Goat> trip) // displays all goats in the "trip"
     
 }
 
-int select_goat(list<Goat> trip)
+int select_goat(set<Goat> trip)
 {
     int index = -1;
 
     if (trip.size() > 0)
     {
-        display_trip(trip); // display list of all first
+        display_trip(trip); // display set of all first
 
         cout << "What is the index of the Goat that you want to remove: ";
         cin >> index;
@@ -132,7 +132,7 @@ int select_goat(list<Goat> trip)
     return (index-1);
 }
 
-void delete_goat(list<Goat> &trip)
+void delete_goat(set<Goat> &trip)
 {
     int posToDelete = select_goat(trip); // correct implementation of select?
     if(posToDelete == -1)
@@ -146,7 +146,7 @@ void delete_goat(list<Goat> &trip)
     trip.erase(it);
 }
 
-void add_goat(list<Goat> &trip, string colors[], string names[])
+void add_goat(set<Goat> &trip, string colors[], string names[])
 {
     Goat temp;
 
@@ -154,5 +154,7 @@ void add_goat(list<Goat> &trip, string colors[], string names[])
     temp.set_color(colors[rand() % SZ_COLORS + 1]); // set temp's color to a random index of colors[]] array (1-25)
     temp.set_age(rand() % (MAX_AGE + 1));                // set temp age to random num 0-20
 
-    trip.push_front(temp); // add temp to the front of the list? Or back? could use push_back() in case of other.
+    trip.insert(temp); // use insert (instead of push_x function) to add completed goat object to the set
+
+    //need to define an overloaded < symbol
 }
