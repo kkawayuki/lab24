@@ -100,9 +100,9 @@ int main_menu()
 
 /************************************************
  * Function: prints out the details and index
- * of each goat in a list formatted nicely
+ * of each goat in a set formatted nicely
  *
- * Parameters: trip, list of Goat objects
+ * Parameters: trip, set of Goat objects
  * Return: NONE
  ************************************************/
 void display_trip(set<Goat> trip) // displays all goats in the "trip"
@@ -126,9 +126,9 @@ void display_trip(set<Goat> trip) // displays all goats in the "trip"
  * removal by the user, returning the input of user
  * if it is valid
  *
- * Parameters: trip, list of Goat objects
+ * Parameters: trip, set of Goat objects
  * Return: int, value corresponding to user desired
- * goat to remove from the list
+ * goat to remove from the set
  ************************************************/
 int select_goat(set<Goat> trip)
 {
@@ -157,7 +157,7 @@ int select_goat(set<Goat> trip)
  * Function: deletes a goat of specific index
  * specified by helper function select_goat()
  *
- * Parameters: trip, list of Goat objects
+ * Parameters: trip, set of Goat objects
  * Return: NONE
  ************************************************/
 void delete_goat(set<Goat> &trip)
@@ -175,11 +175,15 @@ void delete_goat(set<Goat> &trip)
 }
 
 /************************************************
- * Function: adds a new Goat object to the list
- * with a random name, age, and color
+ * Function: adds a new Goat object to the set
+ * with a random name, age, and color, note that
+ * the set automatically sorts it by order of
+ * its first name, the way in which it sorts
+ * could be modified by changing the overloaded
+ * < operator. 
  *
  * Parameters:
- * trip, list of Goat objects
+ * trip, set of Goat objects
  * colors[], array of possible goat colors
  * names[], array of possible goat names
  * Return: NONE
