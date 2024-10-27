@@ -36,7 +36,11 @@ public:
     void set_color(string c)        { color = c; }
     string get_color() const        { return color; }
 
-    // write overloaded < operator for the std::list
+    // overloaded < operator for the std::list
+    bool operator<(const Goat &second) const
+    {
+        return(this->name < second.name); //returns a boolean expression based on the name of the two goats
+    };
 };
 
 #endif
